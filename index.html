@@ -1,154 +1,34 @@
-<html lang="zh-Hant">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>課程練習作品集 - 0410</title>
-    <style>
-        :root {
-            --sidebar-width: 300px;
-            --primary-color: #6366f1;
-            --bg-color: #f8fafc;
-            --sidebar-bg: #0f172a;
-            --hover-bg: #1e293b;
-            --text-light: #f1f5f9;
-            --accent-color: #38bdf8;
-        }
-
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            margin: 0;
-            display: flex;
-            height: 100vh;
-            background-color: var(--bg-color);
-            overflow: hidden;
-        }
-
-        /* 側邊導覽欄 */
-        aside {
-            width: var(--sidebar-width);
-            background-color: var(--sidebar-bg);
-            color: var(--text-light);
-            display: flex;
-            flex-direction: column;
-            box-shadow: 4px 0 15px rgba(0,0,0,0.2);
-            z-index: 10;
-        }
-
-        .header-info {
-            padding: 40px 25px;
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .header-info h1 {
-            margin: 0;
-            font-size: 1.25rem;
-            color: #fff;
-            letter-spacing: 1px;
-        }
-
-        .student-id {
-            display: inline-block;
-            margin-top: 12px;
-            font-size: 0.85rem;
-            font-family: 'Courier New', monospace;
-            color: var(--accent-color);
-            background: rgba(56, 189, 248, 0.1);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            padding: 2px 8px;
-            border-radius: 4px;
-        }
-
-        nav {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px 0;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        li {
-            margin-bottom: 4px;
-        }
-
-        a {
-            text-decoration: none;
-            color: #94a3b8;
-            padding: 14px 25px;
-            display: block;
-            transition: all 0.3s;
-            border-left: 3px solid transparent;
-            line-height: 1.6;
-            font-size: 0.95rem;
-        }
-
-        a:hover, a.active {
-            background-color: var(--hover-bg);
-            color: #fff;
-            border-left-color: var(--primary-color);
-            padding-left: 30px;
-        }
-
-        /* 主要顯示區域 */
-        main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            background-color: #fff;
-            position: relative;
-            box-shadow: inset 10px 0 15px -10px rgba(0,0,0,0.1);
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            background-color: #fff;
-        }
-    </style>
+    <title>Document</title>
 </head>
 <body>
-
-    <aside>
-        <div class="header-info">
-            <h1>我的練習目錄</h1>
-            <span class="student-id">學號：A112233445</span>
-        </div>
-        
-        <nav>
-            <ul>
-                <li><a href="0410/ex1/index.html" target="contentFrame">01 基礎 HTML 結構</a></li>
-                <li><a href="0410/ex2/index.html" target="contentFrame">02 CSS 選擇器入門</a></li>
-                <li><a href="0410/ex3/index.html" target="contentFrame">03 Box Model 盒子模型</a></li>
-                <li><a href="0410/ex4/index.html" target="contentFrame">04 Flexbox 排版實戰</a></li>
-                <li><a href="0410/ex5/index.html" target="contentFrame">05 Vue 基礎應用</a></li>
-                <li><a href="0410/ex6/index.html" target="contentFrame">06 DOM 元素操作</a></li>
-                <li><a href="0410/ex7/index.html" target="contentFrame">07 事件監聽與處理</a></li>
-                <li><a href="0410/ex8/index.html" target="contentFrame">08 API 資料抓取 (Fetch)</a></li>
-                <li><a href="0410/ex9/index.html" target="contentFrame">09 綜合練習專案</a></li>
-            </ul>
-        </nav>
-    </aside>
-
-    <main>
-        <iframe name="contentFrame" src="0410/ex1/index.html"></iframe>
-    </main>
-
-    <script>
-        // 處理選單點擊後的高亮狀態
-        const links = document.querySelectorAll('nav a');
-        links.forEach(link => {
-            link.addEventListener('click', function() {
-                links.forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-        // 預設第一個連結（ex1）為選中狀態
-        if(links.length > 0) links[0].classList.add('active');
-    </script>
+    <div id="app">
+        <input v-model="price" type="number" placeholder="原價" />
+        <p>原價：{{ price }} 元</p>
+        <p>打八折後：{{ discounted }} 元</p>
+        <p>含稅（5%）：{{ withTax }} 元</p>
+      </div>
+      <!-- 引入 Vue -->
+      <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+      <script>
+      Vue.createApp({
+        data() {
+          return { price: 100 }
+        },
+        computed: {
+          discounted() {
+            return Math.round(this.price * 0.8)
+          },
+          withTax() {
+            return Math.round(this.discounted * 1.05)
+          }
+        }
+      }).mount("#app")
+      </script>
+      
 </body>
 </html>
